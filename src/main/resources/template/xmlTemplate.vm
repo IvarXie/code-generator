@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="${mapperPackage}.${beanName}Mapper" >
+  <resultMap id="BaseResultMap" type="${modelPackage}.${beanName}" >	
+  #foreach ( $item in ${columns})
+   	#if ( $item.column == $primaryKey ) 
+  	
+  	<id column="${item.column}" property="${item.lowerProperty}" jdbcType="${item.jdbcType}" /> 
+  	 #end
+  	#end
+   	
+   	#foreach ( $item in ${columns})
+   	#if ( $item.column != $primaryKey ) 
+	<result column="${item.column}" property="${item.lowerProperty}" jdbcType="${item.jdbcType}"  />
+	#end
+   	#end
+   	
+  </resultMap>
+ 
+  <sql id="Example_Where_Clause">
+		<where>
+				<foreach collection="oredCriteria" item="criteria" separator="or">
+					<if test="criteria.valid">
+						<trim prefix="(" suffix=")" prefixOverrides="and">
+							<foreach collection="criteria.criteria" item="criterion">
+								<choose>
+									<when test="criterion.noValue">
+										and ${criterion.condition}
+									</when>
+									<when test="criterion.singleValue">
+										and ${criterion.condition}
+										#{criterion.value}
+									</when>
+									<when test="criterion.betweenValue">
+										and ${criterion.condition}
+										#{criterion.value} and
+										#{criterion.secondValue}
+									</when>
+									<when test="criterion.listValue">
+										and ${criterion.condition}
+										<foreach collection="criterion.value" item="listItem" open="(" close=")" separator=",">
+											#{listItem}
+										</foreach>
+									</when>
+									<when test="criterion.joinValue">
+										${criterion.condition}
+									</when>
+								</choose>
+							</foreach>
+						</trim>
+					</if>
+				</foreach>
+		</where>
+	</sql>
+  <sql id="Base_Column_List" >
+  	#foreach ($item in 	$columns)
+	  	#if (${velocityCount} < ${columns.size()})
+	  	${item.column},
+	  	#else
+	  	${item.column}
+	  	#end
+    #end
+  </sql>
+  
+  <select id="selectByExample" resultType="HashMap" parameterType="${examplePackage}.${beanName}Example">
+		select
+		
+		<include refid="Base_Column_List"/>
+
+		from ${tableName}
+
+		<if test="_parameter != null">
+			<include refid="Example_Where_Clause" />
+		</if>
+	</select>
+	
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from ${tableName}
+    where ${primaryKey} =#{${primaryProperty},jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from ${tableName}
+    where ${primaryKey} = #{primaryProperty,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="${modelPackage}.${beanName}" >
+    insert into ${tableName} (
+    #foreach ( $item in $columns )
+	    #if  (${velocityCount}<${columns.size()})
+		  	${item.column},
+		  	#else
+		  	${item.column}
+	  	#end
+    #end
+      )
+    values (
+     #foreach ( $item in $columns )
+	    #if  (${velocityCount}<${columns.size()})
+    		#{${item.lowerProperty},jdbcType=${item.jdbcType}},
+    	#else
+    		#{${item.lowerProperty},jdbcType=${item.jdbcType}}
+    	#end
+    #end
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="${modelPackage}.${beanName}" >
+    insert into ${tableName}
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      #foreach (${item} in  ${columns})
+      <if test="${item.lowerProperty} != null" >
+        ${item.column},
+      </if>
+      #end
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      #foreach (${item} in  ${columns}) 
+      <if test="${item.lowerProperty} != null" >
+        #{${item.lowerProperty},jdbcType=${item.jdbcType}},
+      </if>
+      #end
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="${examplePackage}.${beanName}Example" resultType="java.lang.Integer" >
+    select count(*) from ${tableName}
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByPrimaryKeySelective" parameterType="${modelPackage}.${beanName}" >
+    update ${tableName}
+    <set >
+      #foreach (${item} in ${columns})
+      <if test="${item.lowerProperty} != null" >
+         {${item.column} = #{${item.lowerProperty},jdbcType=${item.jdbcType}},
+      </if>
+      #end
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+ 
+  <update id="updateByPrimaryKey" parameterType="${modelPackage}.${beanName}" >
+    update ${tableName}
+    set 
+       #foreach ( $item in $columns )
+	    #if  (${velocityCount}<${columns.size()})
+    		${item.column} = #{${item.lowerProperty},jdbcType=${item.jdbcType}},
+    	#else
+    		${item.column} = #{${item.lowerProperty},jdbcType=${item.jdbcType}}
+  	  	#end
+    #end
+    where ${primaryKey} = #{${primaryProperty},jdbcType=INTEGER}
+  </update>
+</mapper>

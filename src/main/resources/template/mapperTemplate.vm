@@ -1,0 +1,37 @@
+package ${mapperPackage};
+
+import java.util.List;
+
+import ${modelPackage}.${beanName};
+import ${examplePackage}.${beanName}Example;
+
+/**
+ * <p>
+ * 
+ *
+ *
+ * </p>
+ * 
+ * @author ${author}
+ * @date ${dateTime}
+ * @version
+ */
+public interface ${beanName}Mapper {
+
+    int countByExample(${beanName}Example example);
+
+    int deleteByPrimaryKey(Integer id);
+
+    int insert(${beanName} record);
+
+    int insertSelective(${beanName} record);
+
+    List<${beanName}> selectByExample(${beanName}Example example);
+
+    ${beanName} selectByPrimaryKey(Integer id);
+
+    int updateByPrimaryKeySelective(${beanName} record);
+
+    int updateByPrimaryKey(${beanName} record);
+
+}

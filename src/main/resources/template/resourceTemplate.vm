@@ -1,0 +1,54 @@
+package ${packageName}.resource;
+
+import com.jyall.dev.api.ResultJson;
+import ${packageName}.feign.${className}FeignClient;
+import com.jyall.redhat.common.cauth.CAuth;
+import com.jyall.util.ResponseUtil;
+import com.netflix.discovery.converters.Auto;
+import com.wordnik.swagger.annotations.Api;
+import com.wordnik.swagger.annotations.ApiOperation;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+import org.springframework.http.ResponseEntity;
+import com.jyall.util.ResponseUtil;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import javax.ws.rs.core.*;
+import javax.ws.rs.*;
+
+/**
+* <p>
+    *
+    *${remark}
+    *
+    * </p>
+*
+* @author ${author}
+* @date ${dateTime}
+* @version
+*/
+@Component
+@Path(value = "/${path}")
+@Produces(MediaType.APPLICATION_JSON)
+@Api(value = "${path}", description = "", produces = MediaType.APPLICATION_JSON)
+public class ${className}Resource{
+    private Logger logger = LoggerFactory.getLogger(${className}Resource.class);
+
+    @Autowired
+    private ${className}FeignClient ${lowerClassName}FeignClient;
+
+
+    #foreach ($jerseyMethodModel in $jerseyMethodModelList)
+
+$!{jerseyMethodModel.requestType}
+$!{jerseyMethodModel.path}
+#if (${jerseyMethodModel.consumes} && ${jerseyMethodModel.consumes}!='' )
+$!{jerseyMethodModel.consumes}
+#end
+    @ApiOperation(value = "", notes = "", httpMethod = "$!{jerseyMethodModel.httpMethod}")
+    public ResultJson $!{jerseyMethodModel.jerseyMethodInfo.methodName}($!{jerseyMethodModel.jerseyMethodInfo.methodParams}){
+        return ResultJson.ok(${lowerClassName}FeignClient.$!{jerseyMethodModel.jerseyMethodInfo.methodName}($!{jerseyMethodModel.jerseyMethodInfo.params}));
+    }
+    #end
+
+}

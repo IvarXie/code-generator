@@ -1,0 +1,50 @@
+package ${modelPackage};
+
+
+import com.jyall.common.mybatis.annotation.MyColumn;
+import com.jyall.common.mybatis.annotation.MyTable;
+import com.jyall.common.mybatis.domain.AbstractDataDomain;
+#if (${hasDate})
+import java.util.Date;
+#end
+
+#if (${hasBigdecimal})
+import java.math.BigDecimal;
+#end
+
+/**
+ * <p>
+ * 
+ *${remark}
+ *
+ * </p>
+ * 
+ * @author ${author}
+ * @date ${dateTime}
+ * @version
+ */
+@MyTable("${tableName}")
+public class ${beanName} extends AbstractDataDomain {
+	#foreach ($item in $columns) 
+	
+	#if (${item.remark} && ${item.remark}!='' )
+/**
+     * $!{item.remark}
+     */
+    #end
+@MyColumn("$!{item.column}")
+	private $!{item.type} $!{item.lowerProperty};
+	#end
+	
+	
+	#foreach ($item in $columns)
+	
+	public $!{item.type} get$!{item.property}() {
+        return $!{item.lowerProperty};
+    }
+
+	public void set$!{item.property}($!{item.type} $!{item.lowerProperty}) {
+    	 this.$!{item.lowerProperty} = $!{item.lowerProperty};
+	}
+	#end
+}
