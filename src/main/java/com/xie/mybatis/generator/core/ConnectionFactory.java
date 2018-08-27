@@ -15,7 +15,7 @@ import java.util.concurrent.LinkedBlockingQueue;
  * @CreationDate: 2018-08-27 11:58
  */
 public class ConnectionFactory {
-	private Database database = YamlUtils.getMysqlProperties().getDatabase();
+	private Database database = YamlUtils.getProperties().getDatabase();
 	private BlockingQueue<Connection> connectionPool = new LinkedBlockingQueue<>();
 	private final byte[] lock = new byte[0];
 

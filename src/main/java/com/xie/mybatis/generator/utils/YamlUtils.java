@@ -4,6 +4,7 @@ import com.xie.mybatis.generator.entity.Properties;
 import org.yaml.snakeyaml.Yaml;
 
 import java.io.InputStream;
+import java.util.Map;
 
 /**
  * @Author xie.wenbo
@@ -13,12 +14,12 @@ import java.io.InputStream;
 public class YamlUtils {
     private static final Yaml yaml = new Yaml();
     private static InputStream inputStream;
-    private final String PATH = "/application.yml";
-    public YamlUtils() {
-        inputStream = this.getClass().getResourceAsStream(PATH);
+    private static final String PATH = "/application.yml";
+    static {
+        inputStream = YamlUtils.class.getResourceAsStream(PATH);
     }
 
-    public static Properties getMysqlProperties(){
+    public static Properties getProperties(){
         return yaml.loadAs(inputStream,Properties.class);
     }
 
