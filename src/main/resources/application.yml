@@ -4,3 +4,12 @@ database:
   username: jyall
   password: jyall2015
   poolSize: 1
+generateTable:
+  enable: true
+  targetDir: ./src/
+  modelPackage: com.jyall.property.api.pojo
+  mapperPackage: com.jyall.mapper
+  examplePackage: com.jyall.example
+  beanJsonPackage: com.jyall.property.api.json
+  primaryKey: id
+generateController: false

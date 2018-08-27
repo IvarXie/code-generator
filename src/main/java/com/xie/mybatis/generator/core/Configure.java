@@ -1,6 +1,20 @@
 package com.xie.mybatis.generator.core;
 
+import com.xie.mybatis.generator.entity.GenerateTable;
+import com.xie.mybatis.generator.utils.YamlUtils;
+
 public class Configure {
+
+	public Configure() {
+		GenerateTable generateTable = YamlUtils.getProperties().getGenerateTable();
+        this.targetDir = generateTable.getTargetDir();
+        this.modelPackage = generateTable.getModelPackage();
+        this.mapperPackage = generateTable.getMapperPackage();
+        this.examplePackage = generateTable.getExamplePackage();
+        this.beanJsonPackage = generateTable.getBeanJsonPackage();
+        this.primaryKey = generateTable.getPrimaryKey();
+	}
+
 
 	public final String templeteBase = "template/";
 

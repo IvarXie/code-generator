@@ -2,10 +2,12 @@ package com.xie.mybatis.generator;
 
 import com.xie.mybatis.generator.core.Configure;
 import com.xie.mybatis.generator.core.DataProcessor;
+import com.xie.mybatis.generator.entity.Properties;
 import com.xie.mybatis.generator.model.JerseyMethodInfo;
 import com.xie.mybatis.generator.model.JerseyMethodModel;
 import com.xie.mybatis.generator.model.JerseyModel;
 import com.xie.mybatis.generator.model.Table;
+import com.xie.mybatis.generator.utils.YamlUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
@@ -25,28 +27,24 @@ import static com.xie.mybatis.generator.core.StringUtils.underLineToCamel3;
  * @Creation Date : 2018-05-18 9:57
  */
 public class Main {
+    private static Properties properties = YamlUtils.getProperties();
     public static void main(String[] args) {
-        generateTable();
-//        generateController("http://10.10.39.32:8082/v1/api");
+        if(properties.getGenerateTable().isEnable()){
+            generateTable();
+        }
+        if(properties.getGenerateController()){
+            generateController("http://10.10.39.32:8082/v1/api");
+        }
     }
 
     /**
      * 生成数据库实体
      */
     private static void generateTable(){
-        Configure config = new Configure();
-        config.setTargetDir("./src/");
-        config.setModelPackage("com.jyall.property.api.pojo");
-        config.setBeanJsonPackage("com.jyall.property.api.json");
-        config.setExamplePackage("com.jyall.example");
-        config.setMapperPackage("com.jyall.mapper");
-        config.setPrimaryKey("id");
-        Generator generator = new Generator(config);
-
+        Generator generator = new Generator(new Configure());
         String tableNamePattern = "%";
         DataProcessor t = new DataProcessor();
         List<Table> tableInfos =  t.getTableInfos(tableNamePattern);
-
         try {
             for (Table table : tableInfos) {
                 generator.generate(table);
