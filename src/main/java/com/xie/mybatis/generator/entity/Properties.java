@@ -6,6 +6,9 @@ package com.xie.mybatis.generator.entity;
  * @CreationDate: 2018-08-27 11:58
  */
 public class Properties {
+    /**
+     * 数据库配置
+     */
     private Database database;
     private GenerateTable generateTable;
     private Boolean generateController;

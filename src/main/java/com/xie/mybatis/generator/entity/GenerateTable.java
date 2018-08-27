@@ -6,18 +6,33 @@ package com.xie.mybatis.generator.entity;
  * @CreationDate: 2018-08-27 15:46
  */
 public class GenerateTable {
+    /**
+     * 开关 true开启 false关闭
+     */
     private boolean enable;
-
+    /**
+     * 生成目录位置
+     */
     private String targetDir;
-
+    /**
+     * model文件位置
+     */
     private String modelPackage;
-
+    /**
+     * mapper文件位置
+     */
     private String mapperPackage;
-
+    /**
+     * example文件位置
+     */
     private String examplePackage;
-
+    /**
+     * json文件位置
+     */
     private String beanJsonPackage;
-
+    /**
+     * 主键
+     */
     private String primaryKey;
 
     public boolean isEnable() {

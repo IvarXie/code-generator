@@ -76,7 +76,6 @@ public class StringUtils {
 		int i = 0;
 		while (mc.find()) {
 			int position = mc.end() - (i++);
-			// String.valueOf(Character.toUpperCase(sb.charAt(position)));
 			sb.replace(position - 1, position + 1, sb.substring(position, position + 1).toUpperCase());
 		}
 		return sb.toString();
@@ -85,12 +84,5 @@ public class StringUtils {
 		return underLineToCamel2(param.replace(".",""));
 	}
 
-	public static void main(String[] args) {
-		String ParamAdmin = "property_parking_1.0_deleteParking";
-		System.out.println(underLineToCamel3(ParamAdmin));
-		System.out.println(underLineToCamel(ParamAdmin));
-		System.out.println(camelToUnderline(ParamAdmin));
-		System.out.println(toUpperCaseFirst(ParamAdmin));
-	}
 
 }

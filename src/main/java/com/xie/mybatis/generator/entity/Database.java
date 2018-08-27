@@ -6,10 +6,25 @@ package com.xie.mybatis.generator.entity;
  * @CreationDate: 2018-08-27 15:03
  */
 public class Database{
+    /**
+     * 数据库url
+     */
     private String url;
+    /**
+     * 驱动
+     */
     private String driver;
+    /**
+     * 用户名
+     */
     private String username;
+    /**
+     * 密码
+     */
     private String password;
+    /**
+     * 连接池
+     */
     private int poolSize;
 
     public String getUrl() {
