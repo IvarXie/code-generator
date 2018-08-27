@@ -1,8 +1,8 @@
-package com.jyall.mybatis.generator.core;
+package com.xie.mybatis.generator.core;
 
 
-import com.jyall.mybatis.generator.model.Column;
-import com.jyall.mybatis.generator.model.Table;
+import com.xie.mybatis.generator.model.Column;
+import com.xie.mybatis.generator.model.Table;
 
 import java.sql.*;
 import java.util.*;
@@ -15,7 +15,7 @@ public class DataProcessor {
 	 * @param tableInfos
 	 */
 	public void prepareProcessTableInfos(List<Table> tableInfos) {
-		ConnectionFactory connectionFactory = ConnectionFactory.getIntance();
+		ConnectionFactory connectionFactory = ConnectionFactory.getInstance();
 		Connection connection = connectionFactory.getConnection();
 
 		try {
@@ -57,7 +57,7 @@ public class DataProcessor {
 		Column column = null;
 		List<Column> columns = null;
 
-		ConnectionFactory connectionFactory = ConnectionFactory.getIntance();
+		ConnectionFactory connectionFactory = ConnectionFactory.getInstance();
 		Connection connection = connectionFactory.getConnection();
 
 		for (Entry<String, Map<String, Map<String, Object>>> e : tables.entrySet()) {
@@ -121,7 +121,7 @@ public class DataProcessor {
 	public Map<String, Map<String, Map<String, Object>>> getTableInfo(String tableNamePattern) {
 		Map<String, Map<String, Map<String, Object>>> tables = new LinkedHashMap<>();
 
-		ConnectionFactory connectionFactory = ConnectionFactory.getIntance();
+		ConnectionFactory connectionFactory = ConnectionFactory.getInstance();
 
 		Connection connection = connectionFactory.getConnection();
 		try {

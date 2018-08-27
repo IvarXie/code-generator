@@ -1,4 +1,4 @@
-package com.jyall.mybatis.generator.model;
+package com.xie.mybatis.generator.model;
 
 import java.util.List;
 

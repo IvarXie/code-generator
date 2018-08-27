@@ -1,0 +1,6 @@
+database:
+  url: jdbc:mysql://10.10.20.46:3306/jyall_property
+  driver: com.mysql.jdbc.Driver
+  user: jyall
+  password: jyall2015
+  poolSize: 1

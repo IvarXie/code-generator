@@ -1,4 +1,4 @@
-package com.jyall.mybatis.generator.core;
+package com.xie.mybatis.generator.core;
 public enum DatabaseDialects
 {
   DB2("VALUES IDENTITY_VAL_LOCAL()"), 

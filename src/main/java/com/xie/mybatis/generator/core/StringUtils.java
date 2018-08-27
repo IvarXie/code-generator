@@ -1,4 +1,4 @@
-package com.jyall.mybatis.generator.core;
+package com.xie.mybatis.generator.core;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;

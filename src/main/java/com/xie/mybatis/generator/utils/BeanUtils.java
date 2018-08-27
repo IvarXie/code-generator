@@ -1,4 +1,4 @@
-package com.jyall.mybatis.generator.utils;
+package com.xie.mybatis.generator.utils;
 
 import java.lang.reflect.Field;
 import java.util.HashMap;

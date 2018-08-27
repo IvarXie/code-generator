@@ -1,4 +1,4 @@
-package com.jyall.mybatis.generator.model;
+package com.xie.mybatis.generator.model;
 
 /**
  * @Author xie.wenbo

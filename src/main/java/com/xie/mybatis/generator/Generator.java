@@ -1,9 +1,9 @@
-package com.jyall.mybatis.generator;
+package com.xie.mybatis.generator;
 
-import com.jyall.mybatis.generator.core.Configure;
-import com.jyall.mybatis.generator.model.JerseyModel;
-import com.jyall.mybatis.generator.model.Table;
-import com.jyall.mybatis.generator.utils.BeanUtils;
+import com.xie.mybatis.generator.core.Configure;
+import com.xie.mybatis.generator.model.JerseyModel;
+import com.xie.mybatis.generator.model.Table;
+import com.xie.mybatis.generator.utils.BeanUtils;
 import org.apache.velocity.VelocityContext;
 import org.apache.velocity.app.Velocity;
 import org.apache.velocity.app.VelocityEngine;

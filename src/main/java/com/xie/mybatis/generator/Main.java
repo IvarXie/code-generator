@@ -1,11 +1,11 @@
-package com.jyall.mybatis.generator;
+package com.xie.mybatis.generator;
 
-import com.jyall.mybatis.generator.core.Configure;
-import com.jyall.mybatis.generator.core.DataProcessor;
-import com.jyall.mybatis.generator.model.JerseyMethodInfo;
-import com.jyall.mybatis.generator.model.JerseyMethodModel;
-import com.jyall.mybatis.generator.model.JerseyModel;
-import com.jyall.mybatis.generator.model.Table;
+import com.xie.mybatis.generator.core.Configure;
+import com.xie.mybatis.generator.core.DataProcessor;
+import com.xie.mybatis.generator.model.JerseyMethodInfo;
+import com.xie.mybatis.generator.model.JerseyMethodModel;
+import com.xie.mybatis.generator.model.JerseyModel;
+import com.xie.mybatis.generator.model.Table;
 import org.apache.commons.lang.StringUtils;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
@@ -17,14 +17,12 @@ import java.io.IOException;
 import java.util.*;
 import java.util.stream.Collectors;
 
-import static com.jyall.mybatis.generator.core.StringUtils.underLineToCamel3;
+import static com.xie.mybatis.generator.core.StringUtils.underLineToCamel3;
 
 /**
  * @Author xie.wenbo
  * @Description TODO
  * @Creation Date : 2018-05-18 9:57
- * Email is xie.wenbo@jyall.com
- * Copyright is 家园网络科技有限公司
  */
 public class Main {
     public static void main(String[] args) {
@@ -135,8 +133,8 @@ public class Main {
             jerseyModel.setPackageName("com.jyall.property.api");
             jerseyModel.setFeignClient(finalFeignClient);
             jerseyModel.setPath(stringListEntry.getKey());
-            jerseyModel.setClassName(com.jyall.mybatis.generator.core.StringUtils.underLineToCamel(com.jyall.mybatis.generator.core.StringUtils.toUpperCaseFirst(stringListEntry.getKey())));
-            jerseyModel.setLowerClassName(com.jyall.mybatis.generator.core.StringUtils.toLowerCaseFirst(jerseyModel.getClassName()));
+            jerseyModel.setClassName(com.xie.mybatis.generator.core.StringUtils.underLineToCamel(com.xie.mybatis.generator.core.StringUtils.toUpperCaseFirst(stringListEntry.getKey())));
+            jerseyModel.setLowerClassName(com.xie.mybatis.generator.core.StringUtils.toLowerCaseFirst(jerseyModel.getClassName()));
             jerseyModel.setJerseyMethodModelList(stringListEntry.getValue());
             jerseyModels.add(jerseyModel);
         });
