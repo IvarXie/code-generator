@@ -22,7 +22,7 @@ import java.math.BigDecimal;
  * @version
  */
 
-public class ${beanName}DO {
+public class ${beanName}Query {
 	#foreach ($item in $columns) 
 	
 	#if (${item.remark} && ${item.remark}!='' )

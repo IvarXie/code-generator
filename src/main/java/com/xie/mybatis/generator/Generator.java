@@ -30,10 +30,12 @@ public class Generator {
 
 	public void generate(Table table) {
 		generateModel(table);
-		generateBeanJson(table);
+		generateQuery(table);
+//		generateBeanJson(table);
 		//generateExample(table);
-		generateMapper(table);
-		//generateXml(table);
+		generateManager(table);
+		generateDao(table);
+		generateXml(table);
 	}
 
 	public void generateJerseyModel(JerseyModel jerseyModel) {
@@ -92,8 +94,17 @@ public class Generator {
 		VelocityEngine velocityEngine = createVelocityEngine();
 		VelocityContext context = createContext(table);
 		Writer writer = createWriter(config.getModelPackage().replace(".", "/")
-				+ "/" + table.getBeanName() + ".java");
+				+ "/" + table.getBeanName() + "DO.java");
 		velocityEngine.mergeTemplate(config.templeteBase + "beanTemplate.vm",
+				context, writer);
+		flushWriter(writer);
+	}
+	public void generateQuery(Table table) {
+		VelocityEngine velocityEngine = createVelocityEngine();
+		VelocityContext context = createContext(table);
+		Writer writer = createWriter(config.getQueryPackage().replace(".", "/")
+				+ "/" + table.getBeanName() + "Query.java");
+		velocityEngine.mergeTemplate(config.templeteBase + "queryTemplate.vm",
 				context, writer);
 		flushWriter(writer);
 	}
@@ -127,15 +138,32 @@ public class Generator {
 		flushWriter(writer);
 	}
 
-	public void generateMapper(Table table) {
+	public void generateManager(Table table) {
 		VelocityEngine velocityEngine = createVelocityEngine();
 
 		VelocityContext context = createContext(table);
 
-		Writer writer = createWriter(config.getMapperPackage()
-				.replace(".", "/") + "/" + table.getBeanName() + "Mapper.java");
+		Writer writer = createWriter(config.getManagerPackage()
+				.replace(".", "/") + "/" + table.getBeanName() + "Manager.java");
 		velocityEngine.mergeTemplate(config.templeteBase
-				+ "mapperTemplate.vm", context, writer);
+				+ "managerTemplate.vm","UTF-8", context, writer);
+
+		Writer writer_1 = createWriter(config.getManagerPackage()
+				.replace(".", "/") + "/impl/" + table.getBeanName() + "ManagerImpl.java");
+		velocityEngine.mergeTemplate(config.templeteBase
+				+ "managerImplTemplate.vm","UTF-8", context, writer_1);
+		flushWriter(writer);
+		flushWriter(writer_1);
+
+	}
+
+	public void generateDao(Table table) {
+		VelocityEngine velocityEngine = createVelocityEngine();
+		VelocityContext context = createContext(table);
+		Writer writer = createWriter(config.getDaoPackage()
+				.replace(".", "/") + "/" + table.getBeanName() + "Dao.java");
+		velocityEngine.mergeTemplate(config.templeteBase
+				+ "daoTemplate.vm","UTF-8", context, writer);
 		flushWriter(writer);
 
 	}
@@ -143,9 +171,9 @@ public class Generator {
 	public void generateXml(Table table) {
 		VelocityEngine velocityEngine = createVelocityEngine();
 		VelocityContext context = createContext(table);
-		Writer writer = createWriter(config.getMapperPackage()
-				.replace(".", "/") + "/" + table.getBeanName() + "Mapper.xml");
-		velocityEngine.mergeTemplate(config.templeteBase + "xmlTemplate.vm",
+		Writer writer = createWriter(config.getXmlPackage()
+				.replace(".", "/") + "/" + "sqlmap_"+table.getBeanName() + ".xml");
+		velocityEngine.mergeTemplate(config.templeteBase + "xmlTemplate.vm","UTF-8",
 				context, writer);
 		flushWriter(writer);
 

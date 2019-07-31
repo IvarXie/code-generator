@@ -4,9 +4,13 @@ import java.util.List;
 
 public class Table {
 
+	private String databaseName;
+
 	private String tableName;
 
 	private String beanName;
+
+	private String lowerCaseBeanName;
 
 	private String remark;
 
@@ -15,6 +19,14 @@ public class Table {
 	private boolean hasDate;
 	
 	private boolean hasBigdecimal;
+
+	public String getDatabaseName() {
+		return databaseName;
+	}
+
+	public void setDatabaseName(String databaseName) {
+		this.databaseName = databaseName;
+	}
 
 	public String getTableName() {
 		return tableName;
@@ -64,5 +76,11 @@ public class Table {
 		this.hasBigdecimal = hasBigdecimal;
 	}
 
-	
+	public String getLowerCaseBeanName() {
+		return lowerCaseBeanName;
+	}
+
+	public void setLowerCaseBeanName(String lowerCaseBeanName) {
+		this.lowerCaseBeanName = lowerCaseBeanName;
+	}
 }

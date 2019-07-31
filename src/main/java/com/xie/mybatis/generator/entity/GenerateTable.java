@@ -31,9 +31,33 @@ public class GenerateTable {
      */
     private String beanJsonPackage;
     /**
+     * manager文件位置
+     */
+    private String managerPackage;
+    /**
+     * dao文件位置
+     */
+    private String daoPackage;
+    /**
+     * xml文件位置
+     */
+    private String xmlPackage;
+    /**
+     * query文件位置
+     */
+    private String queryPackage;
+    /**
      * 主键
      */
     private String primaryKey;
+
+    public String getQueryPackage() {
+        return queryPackage;
+    }
+
+    public void setQueryPackage(String queryPackage) {
+        this.queryPackage = queryPackage;
+    }
 
     public boolean isEnable() {
         return enable;
@@ -89,5 +113,29 @@ public class GenerateTable {
 
     public void setPrimaryKey(String primaryKey) {
         this.primaryKey = primaryKey;
+    }
+
+    public String getManagerPackage() {
+        return managerPackage;
+    }
+
+    public void setManagerPackage(String managerPackage) {
+        this.managerPackage = managerPackage;
+    }
+
+    public String getDaoPackage() {
+        return daoPackage;
+    }
+
+    public void setDaoPackage(String daoPackage) {
+        this.daoPackage = daoPackage;
+    }
+
+    public String getXmlPackage() {
+        return xmlPackage;
+    }
+
+    public void setXmlPackage(String xmlPackage) {
+        this.xmlPackage = xmlPackage;
     }
 }

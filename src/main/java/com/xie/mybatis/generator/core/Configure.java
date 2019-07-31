@@ -13,6 +13,10 @@ public class Configure {
         this.examplePackage = generateTable.getExamplePackage();
         this.beanJsonPackage = generateTable.getBeanJsonPackage();
         this.primaryKey = generateTable.getPrimaryKey();
+        this.managerPackage = generateTable.getManagerPackage();
+        this.daoPackage = generateTable.getDaoPackage();
+        this.xmlPackage = generateTable.getXmlPackage();
+        this.queryPackage = generateTable.getQueryPackage();
 	}
 
 
@@ -27,6 +31,39 @@ public class Configure {
 	private String examplePackage;
 
 	private String beanJsonPackage;
+
+	private String managerPackage;
+
+	private String daoPackage;
+
+	private String xmlPackage;
+
+	private String queryPackage;
+
+
+	public String getQueryPackage() {
+		return queryPackage;
+	}
+
+	public void setQueryPackage(String queryPackage) {
+		this.queryPackage = queryPackage;
+	}
+
+	public String getManagerPackage() {
+		return managerPackage;
+	}
+
+	public void setManagerPackage(String managerPackage) {
+		this.managerPackage = managerPackage;
+	}
+
+	public String getDaoPackage() {
+		return daoPackage;
+	}
+
+	public void setDaoPackage(String daoPackage) {
+		this.daoPackage = daoPackage;
+	}
 
 	public String getBeanJsonPackage() {
 		return beanJsonPackage;
@@ -78,4 +115,11 @@ public class Configure {
 		this.primaryKey = primaryKey;
 	}
 
+	public String getXmlPackage() {
+		return xmlPackage;
+	}
+
+	public void setXmlPackage(String xmlPackage) {
+		this.xmlPackage = xmlPackage;
+	}
 }

@@ -29,8 +29,11 @@ import static com.xie.mybatis.generator.core.StringUtils.underLineToCamel3;
 public class Main {
     private static Properties properties = YamlUtils.getProperties();
     public static void main(String[] args) {
+
+
+
         if(properties.getGenerateTable().isEnable()){
-            generateTable();
+            generateTable("wx_mini_app_order");
         }
         if(properties.getGenerateController()){
             generateController("http://10.10.39.32:8082/v1/api");
@@ -41,8 +44,18 @@ public class Main {
      * 生成数据库实体
      */
     private static void generateTable(){
+        generateTable(null);
+    }
+
+    /**
+     * 生成数据库实体
+     */
+    private static void generateTable(String tableName){
         Generator generator = new Generator(new Configure());
         String tableNamePattern = "%";
+        if(StringUtils.isNotBlank(tableName)){
+            tableNamePattern = tableName;
+        }
         DataProcessor t = new DataProcessor();
         List<Table> tableInfos =  t.getTableInfos(tableNamePattern);
         try {

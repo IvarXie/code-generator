@@ -26,6 +26,7 @@ public class DataProcessor {
 					tableName = tableName.substring(2,tableName.length());
 				}
 				table.setBeanName(StringUtils.underLineToCamel(StringUtils.toUpperCaseFirst(tableName)));
+				table.setLowerCaseBeanName(StringUtils.underLineToCamel(StringUtils.toLowerCaseFirst(tableName)));
 				prepareProcessColumns(table.getColumns());
 			}
 		} catch (SQLException e) {
@@ -68,6 +69,7 @@ public class DataProcessor {
 			tableInfos.add(table);
 			String tableName = e.getKey();
 			table.setTableName(tableName);
+//			table.setDatabaseName();
 
 			prepareProcessTable(table, connection, tableName);
 
@@ -110,6 +112,7 @@ public class DataProcessor {
 			while (rs.next()) {
 				String remark = rs.getString("TABLE_COMMENT");
 				table.setRemark(remark);
+				table.setDatabaseName(rs.getString(2));
 				System.out.println(remark);
 			}
 

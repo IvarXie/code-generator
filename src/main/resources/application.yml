@@ -1,15 +1,19 @@
 database:
-  url: jdbc:mysql://10.10.20.46:3306/jyall_property
+  url: jdbc:mysql://192.168.224.177:3306/market
   driver: com.mysql.jdbc.Driver
-  username: jyall
-  password: jyall2015
+  username: bnqbt
+  password: dev2018@Bnq
   poolSize: 1
 generateTable:
   enable: true
-  targetDir: ./src/
-  modelPackage: com.jyall.property.api.pojo
+  targetDir: ./src/result/
+  modelPackage: com.baj.wx.biz.domain
+  queryPackage: com.baj.wx.biz.query
   mapperPackage: com.jyall.mapper
   examplePackage: com.jyall.example
   beanJsonPackage: com.jyall.property.api.json
+  managerPackage: com.baj.wx.biz.manager
+  daoPackage: com.baj.wx.biz.dao
+  xmlPackage: resources.sqlmap
   primaryKey: id
 generateController: false
