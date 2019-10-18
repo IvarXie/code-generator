@@ -1,0 +1,65 @@
+package ${mapperPackage};
+
+import java.util.List;
+import ${domainPackage}.${beanName}DO;
+import ${queryPackage}.${beanName}Query;
+import org.apache.ibatis.annotations.Mapper;
+
+/**
+ *
+ * @author ${author}
+ * @date ${dateTime}
+ * @version
+ */
+@Mapper
+public interface ${beanName}Dao {
+
+    /**
+    * 插入数据
+    *
+    * @param ${lowerCaseBeanName}DO
+    * @return
+    */
+    Long insert(${beanName}DO ${lowerCaseBeanName}DO);
+
+    /**
+    * 通过ID删除信息
+    *
+    * @param id
+    * @return
+    */
+    Integer deleteById(Long id);
+
+    /**
+    * 通过ID更新信息
+    *
+    * @param ${lowerCaseBeanName}DO
+    * @return
+    */
+    Integer updateById(${beanName}DO ${lowerCaseBeanName}DO);
+
+    /**
+    * 通过ID获取信息
+    *
+    * @param id
+    * @return
+    */
+    ${beanName}DO queryById(Long id);
+
+    /**
+    * 根据条件查询信息
+    *
+    * @param query
+    * @return
+    */
+    List<${beanName}DO> queryByCondition(${beanName}Query query);
+
+    /**
+    * 批量插入信息
+    *
+    * @param list
+    * @return
+    */
+    void batchInsert(List<${beanName}DO> list);
+
+}

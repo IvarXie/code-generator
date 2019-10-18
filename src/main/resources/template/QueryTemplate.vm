@@ -1,0 +1,40 @@
+package ${domainPackage};
+
+
+
+#if (${hasDate})
+import java.util.Date;
+#end
+#if (${hasBigdecimal})
+import java.math.BigDecimal;
+#end
+
+/**
+#if (${remark} && ${remark}!='' )
+*${remark}
+#end
+* @author ${author}
+* @date ${dateTime}
+* @version
+*/
+public class ${beanName}Query {
+#foreach ($item in $columns)
+#if (${item.remark} && ${item.remark}!='' )
+    /**
+    * $!{item.remark}
+    */
+#end
+    private $!{item.type} $!{item.lowerProperty};
+#end
+
+#foreach ($item in $columns)
+    public $!{item.type} get$!{item.property}() {
+    return $!{item.lowerProperty};
+    }
+
+    public void set$!{item.property}($!{item.type} $!{item.lowerProperty}) {
+    this.$!{item.lowerProperty} = $!{item.lowerProperty};
+    }
+
+#end
+}

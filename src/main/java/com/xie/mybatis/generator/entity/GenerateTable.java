@@ -15,49 +15,33 @@ public class GenerateTable {
      */
     private String targetDir;
     /**
-     * model文件位置
+     * 根目录
      */
-    private String modelPackage;
+    private String rootPackage;
     /**
-     * mapper文件位置
+     * 实体类开关
      */
-    private String mapperPackage;
+    private boolean domain;
     /**
-     * example文件位置
+     * manager开关
      */
-    private String examplePackage;
+    private boolean manager;
     /**
-     * json文件位置
+     * dao开关
      */
-    private String beanJsonPackage;
+    private boolean dao;
     /**
-     * manager文件位置
+     * xml开关
      */
-    private String managerPackage;
+    private boolean mapperXml;
     /**
-     * dao文件位置
+     * query开关
      */
-    private String daoPackage;
-    /**
-     * xml文件位置
-     */
-    private String xmlPackage;
-    /**
-     * query文件位置
-     */
-    private String queryPackage;
+    private boolean query;
     /**
      * 主键
      */
     private String primaryKey;
-
-    public String getQueryPackage() {
-        return queryPackage;
-    }
-
-    public void setQueryPackage(String queryPackage) {
-        this.queryPackage = queryPackage;
-    }
 
     public boolean isEnable() {
         return enable;
@@ -75,36 +59,53 @@ public class GenerateTable {
         this.targetDir = targetDir;
     }
 
-    public String getModelPackage() {
-        return modelPackage;
+    public String getRootPackage() {
+        return rootPackage;
     }
 
-    public void setModelPackage(String modelPackage) {
-        this.modelPackage = modelPackage;
+    public void setRootPackage(String rootPackage) {
+        this.rootPackage = rootPackage;
     }
 
-    public String getMapperPackage() {
-        return mapperPackage;
+    public boolean isDomain() {
+        return domain;
     }
 
-    public void setMapperPackage(String mapperPackage) {
-        this.mapperPackage = mapperPackage;
+    public void setDomain(boolean domain) {
+        this.domain = domain;
     }
 
-    public String getExamplePackage() {
-        return examplePackage;
+
+    public boolean isManager() {
+        return manager;
     }
 
-    public void setExamplePackage(String examplePackage) {
-        this.examplePackage = examplePackage;
+    public void setManager(boolean manager) {
+        this.manager = manager;
     }
 
-    public String getBeanJsonPackage() {
-        return beanJsonPackage;
+    public boolean isDao() {
+        return dao;
     }
 
-    public void setBeanJsonPackage(String beanJsonPackage) {
-        this.beanJsonPackage = beanJsonPackage;
+    public void setDao(boolean dao) {
+        this.dao = dao;
+    }
+
+    public boolean isMapperXml() {
+        return mapperXml;
+    }
+
+    public void setMapperXml(boolean mapperXml) {
+        this.mapperXml = mapperXml;
+    }
+
+    public boolean isQuery() {
+        return query;
+    }
+
+    public void setQuery(boolean query) {
+        this.query = query;
     }
 
     public String getPrimaryKey() {
@@ -113,29 +114,5 @@ public class GenerateTable {
 
     public void setPrimaryKey(String primaryKey) {
         this.primaryKey = primaryKey;
-    }
-
-    public String getManagerPackage() {
-        return managerPackage;
-    }
-
-    public void setManagerPackage(String managerPackage) {
-        this.managerPackage = managerPackage;
-    }
-
-    public String getDaoPackage() {
-        return daoPackage;
-    }
-
-    public void setDaoPackage(String daoPackage) {
-        this.daoPackage = daoPackage;
-    }
-
-    public String getXmlPackage() {
-        return xmlPackage;
-    }
-
-    public void setXmlPackage(String xmlPackage) {
-        this.xmlPackage = xmlPackage;
     }
 }

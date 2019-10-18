@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "mybatis-3-mapper.dtd" >
+<mapper namespace="${daoPackage}.${beanName}Dao">
+
+    <resultMap id="${lowerCaseBeanName}Result" type="${domainPackage}.${beanName}DO" >
+#foreach ( $item in ${columns})
+#if ( $item.column == $primaryKey )
+        <id column="${item.column}" property="${item.lowerProperty}"  />
+#end
+#end
+#foreach ( $item in ${columns})
+#if ( $item.column != $primaryKey )
+        <result column="${item.column}" property="${item.lowerProperty}" />
+#end
+#end
+    </resultMap>
+
+    <sql id="selectColumnList">
+#foreach ($item in 	$columns)
+#if (${velocityCount} < ${columns.size()})
+        ${item.column},
+#else
+        ${item.column}
+#end
+#end
+    </sql>
+
+    <sql id="queryWhereSql">
+        where deleted = 0
+#foreach ($item in 	$columns)
+        <if test="${item.lowerProperty} != null">
+            AND ${item.column}=#{${item.lowerProperty}}
+        </if>
+#end
+    </sql>
+
+
+    <insert id="insert" parameterType="${domainPackage}.${beanName}DO">
+        insert into ${databaseName}.${tableName} (
+#foreach ( $item in $columns )
+#if  (${velocityCount}<${columns.size()})
+            ${item.column},
+#else
+            ${item.column}
+#end
+#end
+        )
+        values (
+#foreach ( $item in $columns )
+#if  (${velocityCount}<${columns.size()})
+            #{${item.lowerProperty}},
+#else
+            #{${item.lowerProperty}}
+#end
+#end
+        )
+        <selectKey keyProperty="id" resultType="long" order="AFTER">
+            select
+            LAST_INSERT_ID()
+        </selectKey>
+    </insert>
+
+    <insert id="batchInsert" parameterType="java.util.List"
+            useGeneratedKeys="true" keyProperty="id" keyColumn="id">
+        insert into ${databaseName}.${tableName} (
+#foreach ( $item in $columns )
+#if  (${velocityCount}<${columns.size()})
+            ${item.column},
+#else
+            ${item.column}
+#end
+#end
+        ) values
+        <foreach collection="list" item="item" open=" " separator=","
+                 close=" ">
+            (
+            <![CDATA[
+#foreach ( $item in $columns )
+#if  (${velocityCount}<${columns.size()})
+            #{item.${item.lowerProperty}},
+#else
+            #{item.${item.lowerProperty}}
+#end
+#end
+            ]]>
+            )
+        </foreach>
+    </insert>
+
+    <select id="queryById" resultMap="${lowerCaseBeanName}Result" parameterType="java.lang.Long">
+        select
+        <include refid="selectColumnList"/>
+        from ${databaseName}.${tableName}
+        where deleted=0 and id = #{id}
+    </select>
+
+
+
+    <select id="queryByCondition" resultMap="${lowerCaseBeanName}Result" parameterType="${queryPackage}.${beanName}Query">
+        select
+        <include refid="selectColumnList"/>
+        from ${databaseName}.${tableName}
+        <include refid="queryWhereSql"/>
+    </select>
+
+
+    <select id="count" resultType="int"
+            parameterType="${queryPackage}.${beanName}Query">
+        select
+        count(id)
+        from ${databaseName}.${tableName}
+        <include refid="queryWhereSql"/>
+    </select>
+
+    <update id="updateById" parameterType="${domainPackage}.${beanName}DO">
+        update ${databaseName}.${tableName}
+        set
+#foreach ($item in 	$columns)
+        <if test="${item.lowerProperty} != null">
+            ${item.column}=#{${item.lowerProperty}},
+        </if>
+#end
+        modify_time = now()
+        where deleted=0 and id = #{id}
+    </update>
+
+
+    <update id="batchUpdateById" parameterType="java.util.List">
+        <foreach collection="list" item="item" open=" " separator=";"
+                 close="">
+            update ${databaseName}.${tableName}
+            set
+#foreach ($item in 	$columns)
+            <if test="item.${item.lowerProperty} != null">
+                ${item.column}=#{item.${item.lowerProperty}},
+            </if>
+#end
+            modify_time = now()
+            where deleted=0 and id = #{item.id}
+        </foreach>
+    </update>
+
+
+    <update id="deleteById" parameterType="java.lang.Long">
+        update ${databaseName}.${tableName}
+        set
+        deleted = 1 ,
+        modify_time = now()
+        where deleted=0 and id = #{id}
+    </update>
+
+</mapper>
+
+

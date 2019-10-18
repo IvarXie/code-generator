@@ -8,15 +8,24 @@ public class Configure {
 	public Configure() {
 		GenerateTable generateTable = YamlUtils.getProperties().getGenerateTable();
         this.targetDir = generateTable.getTargetDir();
-        this.modelPackage = generateTable.getModelPackage();
-        this.mapperPackage = generateTable.getMapperPackage();
-        this.examplePackage = generateTable.getExamplePackage();
-        this.beanJsonPackage = generateTable.getBeanJsonPackage();
-        this.primaryKey = generateTable.getPrimaryKey();
-        this.managerPackage = generateTable.getManagerPackage();
-        this.daoPackage = generateTable.getDaoPackage();
-        this.xmlPackage = generateTable.getXmlPackage();
-        this.queryPackage = generateTable.getQueryPackage();
+		this.primaryKey = generateTable.getPrimaryKey();
+		this.rootPackage = generateTable.getRootPackage();
+		if(generateTable.isDomain()){
+			this.domainPackage = generateTable.getRootPackage()+".domain";
+		}
+		if(generateTable.isQuery()){
+			this.queryPackage = generateTable.getRootPackage()+".query";
+		}
+		if(generateTable.isManager()){
+			this.managerPackage = generateTable.getRootPackage()+".manager";
+		}
+		if(generateTable.isMapperXml()){
+			this.mapperXmlPackage = "resources.mapping";
+		}
+		if(generateTable.isDao()){
+			this.daoPackage = generateTable.getRootPackage()+".dao";
+		}
+
 	}
 
 
@@ -24,7 +33,9 @@ public class Configure {
 
 	private String targetDir;
 
-	private String modelPackage;
+	private String rootPackage;
+
+	private String domainPackage;
 
 	private String mapperPackage;
 
@@ -36,7 +47,7 @@ public class Configure {
 
 	private String daoPackage;
 
-	private String xmlPackage;
+	private String mapperXmlPackage;
 
 	private String queryPackage;
 
@@ -75,12 +86,12 @@ public class Configure {
 
 	private String primaryKey;
 
-	public String getModelPackage() {
-		return modelPackage;
+	public String getDomainPackage() {
+		return domainPackage;
 	}
 
-	public void setModelPackage(String modelPackage) {
-		this.modelPackage = modelPackage;
+	public void setDomainPackage(String domainPackage) {
+		this.domainPackage = domainPackage;
 	}
 
 	public String getMapperPackage() {
@@ -115,11 +126,19 @@ public class Configure {
 		this.primaryKey = primaryKey;
 	}
 
-	public String getXmlPackage() {
-		return xmlPackage;
+	public String getMapperXmlPackage() {
+		return mapperXmlPackage;
 	}
 
-	public void setXmlPackage(String xmlPackage) {
-		this.xmlPackage = xmlPackage;
+	public void setMapperXmlPackage(String mapperXmlPackage) {
+		this.mapperXmlPackage = mapperXmlPackage;
+	}
+
+	public String getRootPackage() {
+		return rootPackage;
+	}
+
+	public void setRootPackage(String rootPackage) {
+		this.rootPackage = rootPackage;
 	}
 }

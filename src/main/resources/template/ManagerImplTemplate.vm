@@ -1,0 +1,87 @@
+package ${mapperPackage};
+
+import java.util.List;
+import ${domainPackage}.${beanName}DO;
+import ${queryPackage}.${beanName}Query;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+
+/**
+ *
+ * @author ${author}
+ * @date ${dateTime}
+ * @version
+ */
+@Component
+public class ${beanName}ManagerImpl implements ${beanName}Manager {
+
+    @Autowired
+    private ${beanName}Dao ${lowerCaseBeanName}Dao;
+
+    /**
+    * 插入数据
+    *
+    * @param ${lowerCaseBeanName}DO
+    * @return
+    */
+    @Override
+    public Long insert(${beanName}DO ${lowerCaseBeanName}DO){
+        return ${lowerCaseBeanName}Dao.insert(${lowerCaseBeanName}DO);
+    }
+
+    /**
+    * 通过ID删除信息
+    *
+    * @param id
+    * @return
+    */
+    @Override
+    public Integer deleteById(Long id){
+        return ${lowerCaseBeanName}Dao.deleteById(id);
+    }
+
+    /**
+    * 通过ID更新信息
+    *
+    * @param ${lowerCaseBeanName}DO
+    * @return
+    */
+    @Override
+    public Integer updateById(${beanName}DO ${lowerCaseBeanName}DO){
+        return ${lowerCaseBeanName}Dao.updateById(${lowerCaseBeanName}DO);
+    }
+
+    /**
+    * 通过ID获取信息
+    *
+    * @param id
+    * @return
+    */
+    @Override
+    public ${beanName}DO queryById(Long id){
+        return ${lowerCaseBeanName}Dao.queryById(id);
+    }
+
+    /**
+    * 根据条件查询信息
+    *
+    * @param query
+    * @return
+    */
+    @Override
+    public List<${beanName}DO> queryByCondition(${beanName}Query query){
+        return ${lowerCaseBeanName}Dao.queryByCondition(query);
+    }
+
+    /**
+    * 批量插入信息
+    *
+    * @param list
+    * @return
+    */
+    @Override
+    public void batchInsert(List<${beanName}DO> list){
+        ${lowerCaseBeanName}Dao.batchInsert(list);
+    }
+
+}

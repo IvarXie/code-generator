@@ -4,6 +4,7 @@ import com.xie.mybatis.generator.core.Configure;
 import com.xie.mybatis.generator.model.JerseyModel;
 import com.xie.mybatis.generator.model.Table;
 import com.xie.mybatis.generator.utils.BeanUtils;
+import org.apache.commons.lang.StringUtils;
 import org.apache.velocity.VelocityContext;
 import org.apache.velocity.app.Velocity;
 import org.apache.velocity.app.VelocityEngine;
@@ -29,33 +30,21 @@ public class Generator {
 	}
 
 	public void generate(Table table) {
-		generateModel(table);
-		generateQuery(table);
-//		generateBeanJson(table);
-		//generateExample(table);
-		generateManager(table);
-		generateDao(table);
-		generateXml(table);
-	}
-
-	public void generateJerseyModel(JerseyModel jerseyModel) {
-
-		VelocityEngine velocityEngine = createVelocityEngine();
-		VelocityContext context = createContext1(jerseyModel);
-		Writer writer = createWriter(jerseyModel.getPackageName().concat(".resource").replace(".", "/")
-				+ "/" + jerseyModel.getClassName() + "Resource.java");
-		velocityEngine.mergeTemplate(config.templeteBase + "resourceTemplate.vm",
-				context, writer);
-		flushWriter(writer);
-	}
-	public void generateFeignClient(JerseyModel jerseyModel) {
-		VelocityEngine velocityEngine = createVelocityEngine();
-		VelocityContext context = createContext1(jerseyModel);
-		Writer writer = createWriter(jerseyModel.getPackageName().concat(".feign").replace(".", "/")
-				+ "/" + jerseyModel.getClassName() + "FeignClient.java");
-		velocityEngine.mergeTemplate(config.templeteBase + "feignTemplate.vm",
-				context, writer);
-		flushWriter(writer);
+		if(StringUtils.isNotBlank(config.getDomainPackage())){
+			generateDomain(table);
+		}
+		if(StringUtils.isNotBlank(config.getQueryPackage())){
+			generateQuery(table);
+		}
+		if(StringUtils.isNotBlank(config.getManagerPackage())){
+			generateManager(table);
+		}
+		if(StringUtils.isNotBlank(config.getDaoPackage())){
+			generateDao(table);
+		}
+		if(StringUtils.isNotBlank(config.getMapperXmlPackage())){
+			generateMapperXml(table);
+		}
 	}
 
 	public Writer createWriter(String path) {
@@ -90,12 +79,12 @@ public class Generator {
 		return velocityEngine;
 	}
 
-	public void generateModel(Table table) {
+	public void generateDomain(Table table) {
 		VelocityEngine velocityEngine = createVelocityEngine();
 		VelocityContext context = createContext(table);
-		Writer writer = createWriter(config.getModelPackage().replace(".", "/")
+		Writer writer = createWriter(config.getDomainPackage().replace(".", "/")
 				+ "/" + table.getBeanName() + "DO.java");
-		velocityEngine.mergeTemplate(config.templeteBase + "beanTemplate.vm",
+		velocityEngine.mergeTemplate(config.templeteBase + "DOTemplate.vm",
 				context, writer);
 		flushWriter(writer);
 	}
@@ -104,20 +93,11 @@ public class Generator {
 		VelocityContext context = createContext(table);
 		Writer writer = createWriter(config.getQueryPackage().replace(".", "/")
 				+ "/" + table.getBeanName() + "Query.java");
-		velocityEngine.mergeTemplate(config.templeteBase + "queryTemplate.vm",
+		velocityEngine.mergeTemplate(config.templeteBase + "QueryTemplate.vm",
 				context, writer);
 		flushWriter(writer);
 	}
 
-	public void generateBeanJson(Table table) {
-		VelocityEngine velocityEngine = createVelocityEngine();
-		VelocityContext context = createContext(table);
-		Writer writer = createWriter(config.getBeanJsonPackage().replace(".", "/")
-				+ "/" + table.getBeanName() + "ListJson.java");
-		velocityEngine.mergeTemplate(config.templeteBase + "beanJsonTemplate.vm",
-				context, writer);
-		flushWriter(writer);
-	}
 
 	private void flushWriter(Writer writer) {
 		try {
@@ -127,31 +107,18 @@ public class Generator {
 		}
 	}
 
-	public void generateExample(Table table) {
-		VelocityEngine velocityEngine = createVelocityEngine();
-		VelocityContext context = createContext(table);
-		Writer writer = createWriter(config.getExamplePackage().replace(".",
-				"/")
-				+ "/" + table.getBeanName() + "Example.java");
-		velocityEngine.mergeTemplate(
-				config.templeteBase + "exampleTemplate.vm", context, writer);
-		flushWriter(writer);
-	}
-
 	public void generateManager(Table table) {
 		VelocityEngine velocityEngine = createVelocityEngine();
-
 		VelocityContext context = createContext(table);
-
 		Writer writer = createWriter(config.getManagerPackage()
 				.replace(".", "/") + "/" + table.getBeanName() + "Manager.java");
 		velocityEngine.mergeTemplate(config.templeteBase
-				+ "managerTemplate.vm","UTF-8", context, writer);
+				+ "ManagerTemplate.vm","UTF-8", context, writer);
 
 		Writer writer_1 = createWriter(config.getManagerPackage()
 				.replace(".", "/") + "/impl/" + table.getBeanName() + "ManagerImpl.java");
 		velocityEngine.mergeTemplate(config.templeteBase
-				+ "managerImplTemplate.vm","UTF-8", context, writer_1);
+				+ "ManagerImplTemplate.vm","UTF-8", context, writer_1);
 		flushWriter(writer);
 		flushWriter(writer_1);
 
@@ -163,17 +130,17 @@ public class Generator {
 		Writer writer = createWriter(config.getDaoPackage()
 				.replace(".", "/") + "/" + table.getBeanName() + "Dao.java");
 		velocityEngine.mergeTemplate(config.templeteBase
-				+ "daoTemplate.vm","UTF-8", context, writer);
+				+ "DaoTemplate.vm","UTF-8", context, writer);
 		flushWriter(writer);
 
 	}
 
-	public void generateXml(Table table) {
+	public void generateMapperXml(Table table) {
 		VelocityEngine velocityEngine = createVelocityEngine();
 		VelocityContext context = createContext(table);
-		Writer writer = createWriter(config.getXmlPackage()
-				.replace(".", "/") + "/" + "sqlmap_"+table.getBeanName() + ".xml");
-		velocityEngine.mergeTemplate(config.templeteBase + "xmlTemplate.vm","UTF-8",
+		Writer writer = createWriter(config.getMapperXmlPackage()
+				.replace(".", "/") + "/" +table.getBeanName() + "Mapper.xml");
+		velocityEngine.mergeTemplate(config.templeteBase + "MapperXmlTemplate.vm","UTF-8",
 				context, writer);
 		flushWriter(writer);
 
