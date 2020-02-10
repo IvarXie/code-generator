@@ -21,7 +21,7 @@ import com.baj.newretail.common.mybatis.domain.AbstractDataDomain;
  * @date ${dateTime}
  * @version
  */
-@MyTable(${databaseName}.${tableName})
+@MyTable("${databaseName}.${tableName}")
 public class ${beanName}DO extends AbstractDataDomain  {
 #foreach ($item in $columns)
 #if($item.lowerProperty !='id' && $item.lowerProperty !='creatorId' && $item.lowerProperty !='createTime' && $item.lowerProperty !='modifierId' && $item.lowerProperty !='modifyTime' && $item.lowerProperty !='deleted')
@@ -30,7 +30,7 @@ public class ${beanName}DO extends AbstractDataDomain  {
      * $!{item.remark}
      */
 #end
-    @MyColumn($!{item.lowerProperty})
+    @MyColumn("$!{item.lowerProperty}")
     private $!{item.type} $!{item.lowerProperty};
 #end
 #end

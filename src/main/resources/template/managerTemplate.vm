@@ -1,8 +1,9 @@
 package ${mapperPackage};
 
-
 import ${modelPackage}.${beanName}DO;
 import ${mapperPackage}.${beanName}Mapper;
+import com.baj.newretail.common.mybatis.service.BaseService;
+import org.springframework.stereotype.Service;
 
 /**
  * <p>
@@ -13,6 +14,7 @@ import ${mapperPackage}.${beanName}Mapper;
  * @date ${dateTime}
  * @version
  */
+@Service
 public class ${beanName}Manager extends BaseService<${beanName}Mapper,${beanName}DO> {
 
 }
