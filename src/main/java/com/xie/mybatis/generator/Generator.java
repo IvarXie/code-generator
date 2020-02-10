@@ -34,6 +34,7 @@ public class Generator {
 //		generateBeanJson(table);
 		//generateExample(table);
 		generateManager(table);
+		generateMapper(table);
 		generateDao(table);
 		generateXml(table);
 	}
@@ -147,13 +148,18 @@ public class Generator {
 				.replace(".", "/") + "/" + table.getBeanName() + "Manager.java");
 		velocityEngine.mergeTemplate(config.templeteBase
 				+ "managerTemplate.vm","UTF-8", context, writer);
-
-		Writer writer_1 = createWriter(config.getManagerPackage()
-				.replace(".", "/") + "/impl/" + table.getBeanName() + "ManagerImpl.java");
-		velocityEngine.mergeTemplate(config.templeteBase
-				+ "managerImplTemplate.vm","UTF-8", context, writer_1);
 		flushWriter(writer);
-		flushWriter(writer_1);
+
+	}
+
+	public void generateMapper(Table table) {
+		VelocityEngine velocityEngine = createVelocityEngine();
+		VelocityContext context = createContext(table);
+		Writer writer = createWriter(config.getMapperPackage()
+				.replace(".", "/") + "/" + table.getBeanName() + "Mapper.java");
+		velocityEngine.mergeTemplate(config.templeteBase
+				+ "mapperTemplate.vm","UTF-8", context, writer);
+		flushWriter(writer);
 
 	}
 

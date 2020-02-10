@@ -30,13 +30,8 @@ public class Main {
     private static Properties properties = YamlUtils.getProperties();
     public static void main(String[] args) {
 
-
-
         if(properties.getGenerateTable().isEnable()){
-            generateTable("wx_mini_app_order");
-        }
-        if(properties.getGenerateController()){
-            generateController("http://10.10.39.32:8082/v1/api");
+            generateTable("owner");
         }
     }
 

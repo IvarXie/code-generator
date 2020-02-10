@@ -1,14 +1,11 @@
 package ${mapperPackage};
 
-import java.util.List;
 
-import ${modelPackage}.${beanName};
-import ${queryPackage}.${beanName}Query;
+import ${modelPackage}.${beanName}DO;
+import ${mapperPackage}.${beanName}Mapper;
 
 /**
  * <p>
- * 
- *
  *
  * </p>
  * 
@@ -16,98 +13,6 @@ import ${queryPackage}.${beanName}Query;
  * @date ${dateTime}
  * @version
  */
-public interface ${beanName}Manager {
-
-
-/**
-* 插入数据
-*
-* @param ${lowerCaseBeanName}DO
-* @return
-*/
-Long insert(${beanName}DO ${lowerCaseBeanName}DO);
-
-/**
-* 通过ID更新信息
-*
-* @param ${lowerCaseBeanName}DO
-* @return
-*/
-Integer updateById(${beanName}DO ${lowerCaseBeanName}DO);
-
-/**
-* 通过ID获取信息
-*
-* @param id
-* @return
-*/
-${beanName}DO queryById(Long id);
-
-/**
-* 根据条件查询信息
-*
-* @param query
-* @return
-*/
-List<${beanName}DO> query(${beanName}Query query);
-
-/**
-* 根据条件查询信息(不需要count)
-*
-* @param query
-* @return
-*/
-List<${beanName}DO> queryNoPage(${beanName}Query query, Integer pageSize);
-
-/**
-* 根据条件查询信息(不需要count)
-*
-* @param query
-* @return
-*/
-List<${beanName}DO> queryNoPage(${beanName}Query query);
-
-/**
-* 通过ID删除信息
-*
-* @param id
-* @return
-*/
-Integer deleteById(Long id);
-
-/**
-* 根据ID批量查询信息
-*
-* @param ids
-* @return
-*/
-List<${beanName}DO> queryByIds(List<Long> ids);
-
-/**
-* 批量更新信息
-*
-* @param list
-* @return
-*/
-Integer batchUpdateById(List<${beanName}DO> list);
-
-/**
-* 批量插入信息
-*
-* @param list
-* @return
-*/
-void batchInsert(List<${beanName}DO> list);
-
-
-/**
-* 根据条件查询信息数量
-*
-* @param query
-* @return
-*/
-Integer count(${beanName}Query query);
-
-
+public class ${beanName}Manager extends BaseService<${beanName}Mapper,${beanName}DO> {
 
 }

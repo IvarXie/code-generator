@@ -1,14 +1,14 @@
 package ${modelPackage};
 
-
-
 #if (${hasDate})
 import java.util.Date;
 #end
-
 #if (${hasBigdecimal})
 import java.math.BigDecimal;
 #end
+import com.baj.newretail.common.mybatis.annotation.MyColumn;
+import com.baj.newretail.common.mybatis.annotation.MyTable;
+import com.baj.newretail.common.mybatis.domain.AbstractDataDomain;
 
 /**
  * <p>
@@ -21,27 +21,28 @@ import java.math.BigDecimal;
  * @date ${dateTime}
  * @version
  */
-
-public class ${beanName}DO {
-	#foreach ($item in $columns) 
-	
-	#if (${item.remark} && ${item.remark}!='' )
-/**
+@MyTable(${databaseName}.${tableName})
+public class ${beanName}DO extends AbstractDataDomain  {
+#foreach ($item in $columns)
+#if($item.lowerProperty !='id' && $item.lowerProperty !='creatorId' && $item.lowerProperty !='createTime' && $item.lowerProperty !='modifierId' && $item.lowerProperty !='modifyTime' && $item.lowerProperty !='deleted')
+#if (${item.remark} && ${item.remark}!='' )
+    /**
      * $!{item.remark}
      */
-    #end
-private $!{item.type} $!{item.lowerProperty};
-	#end
-	
-	
-	#foreach ($item in $columns)
-	
-	public $!{item.type} get$!{item.property}() {
+#end
+    @MyColumn($!{item.lowerProperty})
+    private $!{item.type} $!{item.lowerProperty};
+#end
+#end
+
+#foreach ($item in $columns)
+#if($item.lowerProperty !='id' && $item.lowerProperty !='creatorId' && $item.lowerProperty !='createTime' && $item.lowerProperty !='modifierId' && $item.lowerProperty !='modifyTime' && $item.lowerProperty !='deleted')
+    public $!{item.type} get$!{item.property}() {
         return $!{item.lowerProperty};
     }
 
 	public void set$!{item.property}($!{item.type} $!{item.lowerProperty}) {
     	 this.$!{item.lowerProperty} = $!{item.lowerProperty};
 	}
-	#end
-}
+#end
+#end}
