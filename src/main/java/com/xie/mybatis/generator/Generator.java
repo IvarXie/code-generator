@@ -30,13 +30,13 @@ public class Generator {
 
 	public void generate(Table table) {
 		generateModel(table);
-		generateQuery(table);
+//		generateQuery(table);
 //		generateBeanJson(table);
 		//generateExample(table);
 		generateManager(table);
 		generateMapper(table);
-		generateDao(table);
-		generateXml(table);
+//		generateDao(table);
+//		generateXml(table);
 	}
 
 	public void generateJerseyModel(JerseyModel jerseyModel) {

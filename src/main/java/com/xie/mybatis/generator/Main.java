@@ -31,7 +31,7 @@ public class Main {
     public static void main(String[] args) {
 
         if(properties.getGenerateTable().isEnable()){
-            generateTable("owner");
+            generateTable();
         }
     }
 
